@@ -17,7 +17,8 @@
 <div style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
 {% include nav.html %}
 <main>
-{{ content }}
+{% comment %}CMS uploads are saved as /assets/...; prefix the baseurl so they work on github.io/<repo>/.{% endcomment %}{% capture src_fix %}src="{{ site.baseurl }}/assets/{% endcapture %}{% capture href_fix %}href="{{ site.baseurl }}/assets/{% endcapture %}
+{{ content | replace: 'src="/assets/', src_fix | replace: 'href="/assets/', href_fix }}
 </main>
 {% include footer.html %}
 </div>
