@@ -1,0 +1,21 @@
+---
+layout: default
+nav: projects
+title: Projects — Data engineering & analytics case studies
+description: End-to-end data projects by Keyur Kadia — a manufacturing data platform on ERPNext, an e-commerce warehouse, IPL Moneyball analytics and an AI data analyst.
+---
+{% assign projects = site.projects | sort: 'order' %}
+<div style="padding-top:clamp(48px,7vw,88px)">
+{% include kicker.html text="Projects" tone="accent-2" %}
+<h1 style="font-weight:400;font-size:clamp(44px,7vw,96px);line-height:.95;letter-spacing:-.03em;margin:0 0 var(--space-4);max-width:14ch;text-wrap:balance">Claim, evidence, artifact.</h1>
+<p style="font-size:19px;line-height:1.55;max-width:56ch;margin:0;margin-bottom:clamp(56px,8vw,96px)">End-to-end projects, each told the same way: the problem, the architecture, what was engineered, what the analysis found — and the repository behind it.</p>
+{% for p in projects %}<article style="display:flex;flex-wrap:wrap;gap:var(--space-6) clamp(32px,5vw,72px);margin-bottom:clamp(56px,8vw,96px)">
+<div style="flex:0 0 170px">{% include num.html n=p.num size="112px" %}</div>
+<div style="flex:1 1 420px;min-width:0;max-width:720px">
+{% include kicker.html text=p.kicker mb="var(--space-2)" %}
+<h2 style="font-weight:400;font-size:clamp(30px,3.5vw,44px);line-height:1.05;margin:0 0 var(--space-3)"><a href="{{ p.url | relative_url }}" class="plain">{{ p.title }}</a></h2>
+<p style="font-size:17px;margin:0 0 var(--space-3)">{{ p.description }}</p>
+<p class="text-muted" style="font-style:italic;margin:0 0 var(--space-4)">{{ p.flow | join: ' → ' }}</p>
+<div style="display:flex;gap:var(--space-4);flex-wrap:wrap;align-items:baseline;font-size:14px"><a href="{{ p.url | relative_url }}">Read the case study →</a><span class="text-muted">{{ p.stack | join: ', ' }}</span></div>
+</div></article>{% endfor %}
+</div>

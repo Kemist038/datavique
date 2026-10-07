@@ -1,0 +1,27 @@
+---
+layout: default
+nav: writing
+title: Writing — Data engineering, analytics & AI essays
+description: Research-driven essays on data engineering, analytics, AI and business systems — from ERP data to Power BI, KPI design and LLM-generated SQL.
+---
+{% assign articles = site.writing | sort: 'date' | reverse %}
+{% assign lead = articles | where: 'featured', true | first %}{% unless lead %}{% assign lead = articles | first %}{% endunless %}
+<div style="padding-top:clamp(48px,7vw,88px)">
+{% include kicker.html text="Writing" tone="accent-2" %}
+<h1 style="font-weight:400;font-size:clamp(44px,7vw,96px);line-height:.95;letter-spacing:-.03em;margin:0 0 var(--space-4);max-width:14ch;text-wrap:balance;max-width:16ch">Research, not listicles.</h1>
+<p style="font-size:19px;line-height:1.55;max-width:56ch;margin:0;margin-bottom:clamp(56px,8vw,96px)">Essays on data engineering, analytics, AI and the business systems underneath them — built on documentation, datasets, research and original analysis.</p>
+{% if lead %}<article style="max-width:820px;margin-bottom:clamp(64px,9vw,112px)">
+{% include kicker.html text=lead.category %}
+<h2 style="font-weight:400;font-size:clamp(34px,4.5vw,56px);line-height:1.04;letter-spacing:-.02em;margin:0 0 var(--space-3);text-wrap:balance"><a href="{{ lead.url | relative_url }}" class="plain">{{ lead.title }}</a></h2>
+<p style="font-size:19px;max-width:56ch;margin:0 0 var(--space-3)">{{ lead.description }}</p>
+<p class="text-muted" style="font-size:14px;margin:0"><time datetime="{{ lead.date | date_to_xmlschema }}">{{ lead.date | date: '%-d %B %Y' }}</time></p>
+</article>{% endif %}
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(40px,5vw,64px) clamp(32px,5vw,72px)">
+{% for a in articles %}{% if a.url != lead.url %}<article style="max-width:44ch">
+{% include kicker.html text=a.category mb="var(--space-2)" %}
+<h2 style="font-weight:400;font-size:26px;line-height:1.15;margin:0 0 var(--space-2);text-wrap:balance"><a href="{{ a.url | relative_url }}" class="plain">{{ a.title }}</a></h2>
+<p class="text-muted" style="margin:0 0 var(--space-2)">{{ a.description }}</p>
+<p class="text-muted" style="font-size:13px;margin:0"><time datetime="{{ a.date | date_to_xmlschema }}">{{ a.date | date: '%-d %B %Y' }}</time></p>
+</article>{% endif %}{% endfor %}
+</div>
+</div>

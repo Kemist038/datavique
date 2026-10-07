@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% seo %}
+{% feed_meta %}
+<meta name="theme-color" content="#f3f2f2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="{{ '/assets/styles.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
+<link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
+</head>
+<body>
+<div style="min-height:100vh;background:var(--color-bg);color:var(--color-text)">
+<div style="max-width:1200px;padding:0 clamp(20px,5vw,64px)">
+{% include nav.html %}
+<main>
+{{ content }}
+</main>
+{% include footer.html %}
+</div>
+</div>
+<script src="{{ '/assets/site.js' | relative_url }}" defer></script>
+</body>
+</html>

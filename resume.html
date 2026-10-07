@@ -1,0 +1,20 @@
+---
+layout: default
+nav: resume
+permalink: /resume/
+title: Resume — Keyur Kadia, Data Analyst & Analytics Engineer
+description: Resume of Keyur Kadia — Data Analyst working with SQL, Python, PostgreSQL, Power BI, DAX, ETL and ERP systems, moving into analytics and data engineering.
+---
+{% assign r = site.data.resume %}{% assign projects = site.projects | sort: 'order' %}
+<div style="padding-top:clamp(48px,7vw,88px)">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--space-4);align-items:flex-end;margin-bottom:clamp(48px,7vw,80px)">
+<div>{% include kicker.html text="Resume" tone="accent-2" %}<h1 style="font-weight:400;font-size:clamp(44px,7vw,96px);line-height:.95;letter-spacing:-.03em;margin:0 0 var(--space-4);max-width:14ch;text-wrap:balance;max-width:none">{{ site.author.name }}</h1><p style="font-size:19px;margin:0">{{ r.role }}</p></div>
+{% if r.pdf and r.pdf != '' %}<a class="btn btn-primary" href="{{ r.pdf | relative_url }}" download>Download PDF</a>{% endif %}
+</div>
+<div style="display:flex;flex-direction:column;gap:clamp(48px,6vw,72px);max-width:900px">
+<section class="row"><h2 class="row-h">Summary</h2><div class="row-b"><p style="margin:0;font-size:17px">{{ r.summary }}</p></div></section>
+<section class="row"><h2 class="row-h">Experience</h2><div class="row-b">{% for j in r.experience %}<div style="margin-bottom:var(--space-6)"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--space-2);align-items:baseline"><h3 style="font-weight:600;font-size:19px;margin:0">{{ j.role }}</h3><span class="text-muted" style="font-size:14px">{{ j.when }}</span></div><p class="text-muted" style="margin:var(--space-1) 0 var(--space-3)">{{ j.org }}</p><ul style="margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:var(--space-2)">{% for x in j.points %}<li>{{ x }}</li>{% endfor %}</ul></div>{% endfor %}</div></section>
+<section class="row"><h2 class="row-h">Selected projects</h2><div class="row-b"><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-3)">{% for p in projects %}<li><a href="{{ p.url | relative_url }}" style="font-size:19px">{{ p.title }}</a><span class="text-muted"> — {{ p.kicker }}</span></li>{% endfor %}</ul></div></section>
+<section class="row"><h2 class="row-h">Toolkit</h2><div class="row-b"><dl style="margin:0;display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:var(--space-2) var(--space-6)">{% for t in r.toolkit %}<dt style="font-weight:600">{{ t.area }}</dt><dd style="margin:0">{{ t.items }}</dd>{% endfor %}</dl></div></section>
+<section class="row"><h2 class="row-h">Education</h2><div class="row-b"><p style="margin:0">{{ r.education }}</p></div></section>
+</div></div>

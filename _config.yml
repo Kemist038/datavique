@@ -1,0 +1,44 @@
+# Site-wide settings. Most day-to-day text lives in the CMS (Site settings).
+title: Datavique
+tagline: Data systems, analytics engineering & AI
+description: Datavique is Keyur Kadia’s technical portfolio — data systems, analytics engineering and practical AI built from ERP, manufacturing and e-commerce data.
+url: "https://kemist038.github.io"
+baseurl: "/datavique"
+lang: en_US
+logo: /assets/favicon.svg
+author:
+  name: Keyur Kadia
+  url: https://kemist038.github.io/datavique/about/
+social:
+  name: Keyur Kadia
+  links:
+    - https://github.com/
+    - https://www.linkedin.com/
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+  writing:
+    output: true
+    permalink: /writing/:name/
+
+feed:
+  collections:
+    writing:
+      path: /writing/feed.xml
+
+defaults:
+  - scope: { path: "", type: projects }
+    values: { layout: project, nav: projects }
+  - scope: { path: "", type: writing }
+    values: { layout: article, nav: writing }
+  - scope: { path: "about.md" }
+    values: { layout: about, nav: about, permalink: /about/ }
+
+exclude: [README.md, .pages.yml, Gemfile, Gemfile.lock]
