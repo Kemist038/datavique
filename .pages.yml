@@ -1,0 +1,138 @@
+# Dashboard setup for Pages CMS (https://pagescms.org). Log in there with GitHub and open this repository.
+media:
+  input: assets/images
+  output: /assets/images
+
+content:
+  - name: writing
+    label: Writing
+    type: collection
+    path: _writing
+    filename: "{primary}.md"
+    view:
+      fields: [title, category, date, featured]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - name: category
+        label: Category
+        type: select
+        options:
+          values: ["Data engineering", "Analytics", "AI + Data", "Business & technology"]
+      - { name: description, label: "Summary (shown in lists and Google, ~150 characters)", type: text, required: true }
+      - { name: date, label: Publish date, type: date, required: true }
+      - { name: featured, label: "Lead essay (show first)", type: boolean, default: false }
+      - { name: image, label: "Cover image (optional, also used when shared)", type: image }
+      - { name: related_project, label: "Related project file name (optional, e.g. ipl-moneyball)", type: string }
+      - { name: body, label: Article, type: rich-text }
+
+  - name: projects
+    label: Projects
+    type: collection
+    path: _projects
+    filename: "{primary}.md"
+    view:
+      fields: [title, order]
+      primary: title
+      default:
+        sort: order
+        order: asc
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: order, label: "Order (1 = first, flagship)", type: number, required: true }
+      - { name: num, label: "Big number shown (e.g. 05)", type: string }
+      - { name: kicker, label: "Small label (e.g. Data engineering · Retail)", type: string }
+      - { name: description, label: "Summary (~150 characters)", type: text, required: true }
+      - { name: flow, label: "Architecture steps", type: string, list: true }
+      - { name: problem, label: Problem, type: text }
+      - { name: data, label: Data, type: text }
+      - { name: engineering, label: "Engineering (one point per item)", type: string, list: true }
+      - { name: analysis, label: Analysis, type: text }
+      - name: model
+        label: Model table
+        type: object
+        list: true
+        fields:
+          - { name: item, label: Name, type: string }
+          - { name: detail, label: Detail, type: string }
+      - { name: sql, label: "SQL excerpt (optional)", type: text }
+      - { name: result, label: Result, type: text }
+      - { name: stack, label: Tools used, type: string, list: true }
+      - { name: repository, label: GitHub repository link, type: string }
+      - { name: demo, label: "Live demo link (optional)", type: string }
+      - { name: image, label: "Share image (optional)", type: image }
+      - { name: body, label: "Extra notes (optional)", type: rich-text }
+
+  - name: about
+    label: About page
+    type: file
+    path: about.md
+    fields:
+      - { name: title, label: "Page title (Google)", type: string }
+      - { name: description, label: "Summary (Google)", type: text }
+      - { name: heading, label: Heading, type: string }
+      - name: timeline
+        label: Career path
+        type: object
+        list: true
+        fields:
+          - { name: when, label: When, type: string }
+          - { name: role, label: Role, type: string }
+      - { name: body, label: Story, type: rich-text }
+
+  - name: now
+    label: Now page
+    type: file
+    path: _data/now.yml
+    format: yaml
+    fields:
+      - { name: updated, label: Last updated, type: date }
+      - { name: building, label: Building, type: text }
+      - { name: learning, label: Learning, type: text }
+      - { name: writing, label: Writing, type: text }
+      - { name: next, label: Next, type: text }
+
+  - name: resume
+    label: Resume
+    type: file
+    path: _data/resume.yml
+    format: yaml
+    fields:
+      - { name: role, label: Headline, type: string }
+      - { name: pdf, label: Resume PDF, type: file }
+      - { name: summary, label: Summary, type: text }
+      - name: experience
+        label: Experience
+        type: object
+        list: true
+        fields:
+          - { name: role, label: Role, type: string }
+          - { name: org, label: "Company · City", type: string }
+          - { name: when, label: Dates, type: string }
+          - { name: points, label: Achievements, type: string, list: true }
+      - name: toolkit
+        label: Toolkit
+        type: object
+        list: true
+        fields:
+          - { name: area, label: Area, type: string }
+          - { name: items, label: Tools, type: string }
+      - { name: education, label: Education, type: string }
+
+  - name: site
+    label: Site settings
+    type: file
+    path: _data/site.yml
+    format: yaml
+    fields:
+      - { name: headline, label: Homepage headline, type: text }
+      - { name: intro, label: Homepage intro, type: text }
+      - { name: about_teaser, label: Homepage about text, type: text }
+      - { name: issue, label: "Masthead line (e.g. No. 02 — October 2026)", type: string }
+      - { name: email, label: Email, type: string }
+      - { name: github, label: GitHub profile link, type: string }
+      - { name: linkedin, label: LinkedIn profile link, type: string }
