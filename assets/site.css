@@ -5,6 +5,8 @@ a:hover{color:var(--color-accent)}
 a.plain{color:var(--color-text);text-decoration:none}
 a.plain:hover{color:var(--color-accent-700)}
 :focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+.nav-gap{width:var(--space-4)}
+@media (max-width:600px){.nav-gap{display:none}}
 .sec{font-weight:400;font-size:28px;margin:0 0 var(--space-3)}
 .prose-sm>p{margin:0 0 var(--space-3)}
 .prose-sm>p:last-child{margin-bottom:0}
