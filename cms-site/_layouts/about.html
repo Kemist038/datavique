@@ -1,0 +1,19 @@
+---
+layout: default
+---
+<div style="padding-top:clamp(48px,7vw,88px)">
+{% include kicker.html text="About" tone="accent-2" %}
+<h1 style="font-weight:400;font-size:clamp(44px,7vw,96px);line-height:.95;letter-spacing:-.03em;margin:0 0 var(--space-4);max-width:14ch;text-wrap:balance">{{ page.heading | default: page.title }}</h1>
+<div style="display:flex;flex-wrap:wrap;gap:var(--space-8) clamp(32px,6vw,96px);margin-top:clamp(48px,7vw,80px)">
+<div class="prose" style="flex:2 1 460px;min-width:0">{{ content }}</div>
+{% if page.timeline %}<aside aria-labelledby="path" style="flex:1 1 260px;min-width:0;max-width:340px">
+<h2 id="path" style="font-size:13px;font-weight:400;color:var(--color-accent-2-700);margin:0 0 var(--space-4)">The path</h2>
+<ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-4)">{% for t in page.timeline %}<li><div class="text-muted" style="font-size:13px;font-feature-settings:'tnum'">{{ t.when }}</div><div style="font-size:22px">{{ t.role }}</div></li>{% endfor %}</ol>
+</aside>{% endif %}
+</div>
+<section aria-labelledby="toward" style="margin-top:clamp(64px,9vw,112px)">
+<h2 id="toward" style="font-size:13px;font-weight:400;color:var(--color-accent-2-700);margin:0 0 var(--space-4)">What I build toward</h2>
+{% assign steps = "Operational systems,Data,Engineering,Analytics,AI,Decisions" | split: "," %}{% include flow.html steps=steps size="clamp(22px,2.8vw,34px)" %}
+</section>
+</div>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfilePage","mainEntity":{"@type":"Person","name":"{{ site.author.name }}","url":"{{ page.url | absolute_url }}","jobTitle":"Data Analyst","sameAs":["{{ site.data.site.github }}","{{ site.data.site.linkedin }}"],"knowsAbout":["SQL","Python","PostgreSQL","Power BI","DAX","Data modeling","ETL","ERPNext","Data engineering","AI"]}}</script>

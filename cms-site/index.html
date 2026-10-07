@@ -1,0 +1,65 @@
+---
+layout: default
+nav: home
+---
+{% assign s = site.data.site %}{% assign now = site.data.now %}
+{% assign projects = site.projects | sort: 'order' %}{% assign p1 = projects | first %}
+{% assign articles = site.writing | sort: 'date' | reverse %}
+{% assign lead = articles | where: 'featured', true | first %}{% unless lead %}{% assign lead = articles | first %}{% endunless %}
+<section aria-label="Masthead" style="padding-top:var(--space-6)">
+<div style="border-top:4px solid var(--color-text);border-bottom:1px solid var(--color-text);margin-top:3px;padding:var(--space-2) 0;display:flex;gap:var(--space-2) var(--space-6);flex-wrap:wrap;font-size:13px;font-feature-settings:'tnum'">
+<span>{{ s.issue }}</span><span>Data · Engineering · Analytics · AI</span><span style="font-style:italic">Edited by {{ site.author.name }}</span>
+</div>
+<h1 style="font-weight:400;font-size:clamp(56px,11vw,152px);line-height:.9;letter-spacing:-.035em;margin:var(--space-6) 0 0">{{ site.title }}</h1>
+<div style="border-top:1px solid var(--color-text);border-bottom:4px solid var(--color-text);margin-top:var(--space-4);height:3px"></div>
+</section>
+<section style="padding:clamp(48px,7vw,88px) 0 0;display:flex;flex-wrap:wrap;gap:var(--space-8) clamp(32px,6vw,96px)">
+<div style="flex:2 1 460px;min-width:0;max-width:760px">
+{% include kicker.html text="Data systems from operational data" tone="accent-2" %}
+<h2 style="font-weight:400;font-size:clamp(36px,5vw,64px);line-height:1.02;letter-spacing:-.025em;margin:0 0 var(--space-4);text-wrap:balance">{{ s.headline }}</h2>
+<p style="font-size:19px;line-height:1.55;max-width:56ch;margin:0;margin:0 0 var(--space-6)">{{ s.intro }}</p>
+<div style="display:flex;gap:var(--space-2);flex-wrap:wrap"><a class="btn btn-primary" href="{{ '/projects/' | relative_url }}">Explore projects</a><a class="btn btn-secondary" href="{{ '/writing/' | relative_url }}">Read the writing</a></div>
+</div>
+<aside aria-label="Now" style="flex:1 1 260px;min-width:0;max-width:340px">
+{% include kicker.html text="Now" tone="accent-2" %}
+<div style="margin:0 0 var(--space-3)"><span style="font-weight:600">Building</span> {{ now.building | markdownify | remove: '<p>' | remove: '</p>' }}</div>
+<div style="margin:0 0 var(--space-3)"><span style="font-weight:600">Learning</span> {{ now.learning | markdownify | remove: '<p>' | remove: '</p>' }}</div>
+<a href="{{ '/now/' | relative_url }}" style="font-size:14px">More on Now →</a>
+</aside>
+</section>
+<section aria-labelledby="work" style="padding:clamp(64px,9vw,120px) 0 0">
+<div style="display:flex;gap:var(--space-4);align-items:baseline;flex-wrap:wrap;margin-bottom:var(--space-8)"><h2 id="work" style="font-weight:400;font-size:clamp(28px,3.5vw,40px);margin:0">Selected work</h2><a href="{{ '/projects/' | relative_url }}" style="font-size:14px">All projects →</a></div>
+<article style="display:flex;flex-wrap:wrap;gap:var(--space-6) clamp(32px,5vw,72px);margin-bottom:clamp(56px,8vw,96px)">
+{% include num.html n=p1.num size="clamp(96px,14vw,180px)" %}
+<div style="flex:2 1 460px;min-width:0">
+{% include kicker.html text=p1.kicker mb="var(--space-2)" %}
+<h3 style="font-weight:400;font-size:clamp(32px,4vw,48px);line-height:1.05;margin:0 0 var(--space-4)"><a href="{{ p1.url | relative_url }}" class="plain">{{ p1.title }}</a></h3>
+<div style="columns:2 260px;column-gap:var(--space-8)"><p style="margin-top:0">{{ p1.description }}</p><p style="font-style:italic;margin-bottom:0">{{ p1.flow | join: ' → ' }}</p></div>
+<div style="margin-top:var(--space-4);display:flex;gap:var(--space-4);flex-wrap:wrap;align-items:baseline;font-size:14px"><span class="text-muted">{{ p1.stack | join: ', ' }}</span><a href="{{ p1.url | relative_url }}">Read the case study →</a></div>
+</div></article>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:var(--space-8) clamp(32px,5vw,64px)">
+{% for p in projects offset:1 limit:3 %}<article>
+<div style="margin-bottom:var(--space-4)">{% include num.html n=p.num size="64px" %}</div>
+{% include kicker.html text=p.kicker mb="var(--space-2)" %}
+<h3 style="font-weight:400;font-size:28px;margin:0 0 var(--space-3)"><a href="{{ p.url | relative_url }}" class="plain">{{ p.title }}</a></h3>
+<p>{{ p.description }}</p>
+<a href="{{ p.url | relative_url }}" style="font-size:14px">Case study →</a>
+</article>{% endfor %}
+</div></section>
+<section aria-labelledby="writing" style="padding:clamp(64px,9vw,120px) 0 0">
+<div style="display:flex;gap:var(--space-4);align-items:baseline;flex-wrap:wrap;margin-bottom:var(--space-8)"><h2 id="writing" style="font-weight:400;font-size:clamp(28px,3.5vw,40px);margin:0">Writing</h2><a href="{{ '/writing/' | relative_url }}" style="font-size:14px">All essays →</a></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--space-8) clamp(32px,5vw,72px)">
+{% if lead %}<article>
+{% include kicker.html text=lead.category mb="var(--space-2)" %}
+<h3 style="font-weight:400;font-size:clamp(30px,3.5vw,44px);line-height:1.08;letter-spacing:-.02em;margin:0 0 var(--space-3);text-wrap:balance"><a href="{{ lead.url | relative_url }}" class="plain">{{ lead.title }}</a></h3>
+<p style="font-size:17px;max-width:48ch;margin:0">{{ lead.description }}</p>
+</article>{% endif %}
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:var(--space-6)">
+{% assign shown = 0 %}{% for a in articles %}{% if a.url != lead.url and shown < 4 %}{% assign shown = shown | plus: 1 %}<article>{% include kicker.html text=a.category mb="var(--space-1)" %}<h3 style="font-weight:400;font-size:20px;line-height:1.25;margin:0"><a href="{{ a.url | relative_url }}" class="plain">{{ a.title }}</a></h3></article>{% endif %}{% endfor %}
+</div></div></section>
+<section aria-labelledby="about-h" style="padding:clamp(64px,9vw,120px) 0 0;display:flex;flex-wrap:wrap;gap:var(--space-6) clamp(32px,6vw,96px)">
+<blockquote style="margin:0;flex:1 1 260px;font-style:italic;font-size:clamp(26px,3vw,36px);line-height:1.2;max-width:18ch">“A dashboard is only the final layer.”</blockquote>
+<div style="flex:2 1 460px;min-width:0;max-width:640px">
+<h2 id="about-h" style="font-size:13px;font-weight:400;color:var(--color-accent-2-700);margin:0 0 var(--space-3)">About</h2>
+<p style="font-size:17px">{{ s.about_teaser }} <a href="{{ '/about/' | relative_url }}">More →</a></p>
+</div></section>

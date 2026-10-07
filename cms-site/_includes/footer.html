@@ -1,0 +1,8 @@
+<footer style="padding:clamp(64px,9vw,120px) 0 var(--space-8)">
+<div style="border-top:4px solid var(--color-text);border-bottom:1px solid var(--color-text);height:3px;margin-bottom:var(--space-4)"></div>
+<div style="display:flex;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;align-items:baseline">
+<p style="margin:0;font-size:clamp(24px,3vw,32px)">Write to {{ site.title }} — <a href="mailto:{{ site.data.site.email }}">{{ site.data.site.email }}</a></p>
+<div style="display:flex;gap:var(--space-4);flex-wrap:wrap;font-size:14px"><a href="{{ '/projects/' | relative_url }}">Projects</a><a href="{{ '/writing/' | relative_url }}">Writing</a><a href="{{ '/writing/feed.xml' | relative_url }}">RSS</a><a href="{{ site.data.site.github }}" rel="me noopener">GitHub</a><a href="{{ site.data.site.linkedin }}" rel="me noopener">LinkedIn</a></div>
+</div>
+<p class="text-muted" style="font-size:13px;margin:var(--space-6) 0 0">© {{ site.time | date: '%Y' }} {{ site.title }} · {{ site.author.name }}. {{ site.tagline }}.</p>
+</footer>
