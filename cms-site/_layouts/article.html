@@ -1,0 +1,31 @@
+---
+layout: default
+---
+{% assign rp = site.projects | where_exp: "p", "p.slug == page.related_project" | first %}
+{% assign more = site.writing | sort: 'date' | reverse | where_exp: "a", "a.url != page.url" %}
+{% assign words = content | number_of_words %}{% assign mins = words | divided_by: 200 | plus: 1 %}
+<div class="progress" data-progress aria-hidden="true"></div>
+<article id="top" style="padding-top:clamp(40px,6vw,72px)">
+{% include breadcrumbs.html section="Writing" section_url="/writing/" %}
+<header style="max-width:820px;margin-bottom:clamp(40px,6vw,64px)">
+{% include kicker.html text=page.category %}
+<h1 style="font-weight:400;font-size:clamp(40px,6vw,76px);line-height:1;letter-spacing:-.03em;margin:0 0 var(--space-4);text-wrap:balance">{{ page.title }}</h1>
+<p style="font-size:21px;line-height:1.45;font-style:italic;margin:0 0 var(--space-4)">{{ page.description }}</p>
+<p class="text-muted" style="font-size:14px;margin:0;font-feature-settings:'tnum'">By <a href="{{ '/about/' | relative_url }}" rel="author">{{ site.author.name }}</a> · <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%-d %B %Y' }}</time> · {{ mins }} min read</p>
+</header>
+{% if page.image %}<figure class="halftone" style="margin:0 0 clamp(40px,6vw,64px);max-width:820px"><img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title }}" style="width:100%;display:block"></figure>{% endif %}
+<div class="doc">
+<aside class="doc-aside">
+<nav class="toc" aria-label="On this page" data-toc-auto hidden><div class="toc-h">On this page</div><ol></ol></nav>
+{% if rp %}<div><div class="toc-h" style="margin-bottom:var(--space-2)">Related project</div><a href="{{ rp.url | relative_url }}" style="text-decoration:none;font-size:17px;line-height:1.3">{{ rp.title }}</a></div>{% endif %}
+<a href="#top" class="totop">↑ Back to top</a>
+</aside>
+<div class="prose doc-main">
+{{ content }}
+</div>
+</div>
+<aside style="margin-top:clamp(56px,8vw,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:var(--space-8) clamp(32px,5vw,64px);max-width:1080px">
+{% if rp %}<div>{% include kicker.html text="Related project" tone="accent-2" mb="var(--space-2)" %}<a href="{{ rp.url | relative_url }}" style="font-size:24px;line-height:1.2;text-decoration:none">{{ rp.title }} →</a></div>{% endif %}
+{% for m in more limit:2 %}<div>{% include kicker.html text=m.category mb="var(--space-2)" %}<a href="{{ m.url | relative_url }}" class="plain" style="font-size:24px;line-height:1.2">{{ m.title }}</a></div>{% endfor %}
+</aside>
+</article>

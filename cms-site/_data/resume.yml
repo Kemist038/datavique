@@ -1,0 +1,28 @@
+role: "Data Analyst → Analytics Engineer"
+pdf: ""
+summary: "Data Analyst building the systems behind analysis — ERP data, PostgreSQL models, ETL pipelines and Power BI — and moving into analytics and data engineering."
+experience:
+  - role: "Data Analyst"
+    org: "[Company] · [City]"
+    when: "2024 — present"
+    points:
+      - "Designed an ETL pipeline from ERPNext operational data into a PostgreSQL analytics layer"
+      - "Built management dashboards on a star-schema model with optimised DAX"
+      - "Modelled sales, purchasing, inventory, production and quality data for plant reporting"
+  - role: "Civil Engineer"
+    org: "[Company] · [City]"
+    when: "[Years]"
+    points:
+      - "Project planning, quantities and site data — the start of an interest in data and systems"
+toolkit:
+  - area: "Data"
+    items: "SQL, PostgreSQL, data modelling, star schemas"
+  - area: "Engineering"
+    items: "Python, ETL/ELT, APIs, Git"
+  - area: "Analytics"
+    items: "Power BI, DAX, KPI design"
+  - area: "Systems"
+    items: "ERPNext, manufacturing data"
+  - area: "AI"
+    items: "LLM APIs, text-to-SQL, validation"
+education: "[Degree] in Civil Engineering · [University], [Year]"

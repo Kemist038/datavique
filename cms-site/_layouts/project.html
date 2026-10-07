@@ -1,0 +1,68 @@
+---
+layout: default
+---
+{% assign projects = site.projects | sort: 'order' %}
+{% for p in projects %}{% if p.url == page.url %}{% assign i = forloop.index %}{% endif %}{% endfor %}
+{% assign next = projects[i] | default: projects.first %}
+<div class="progress" data-progress aria-hidden="true"></div>
+<article id="top" style="padding-top:clamp(40px,6vw,72px)">
+{% include breadcrumbs.html section="Projects" section_url="/projects/" %}
+<header style="display:flex;flex-wrap:wrap;gap:var(--space-6) clamp(32px,5vw,72px);align-items:flex-end;margin-bottom:clamp(48px,7vw,80px)">
+{% include num.html n=page.num size="clamp(120px,16vw,200px)" %}
+<div style="flex:1 1 420px;min-width:0;max-width:760px">
+{% include kicker.html text=page.kicker mb="var(--space-2)" %}
+<h1 style="font-weight:400;font-size:clamp(44px,7vw,96px);line-height:.95;letter-spacing:-.03em;margin:0 0 var(--space-4);max-width:14ch;text-wrap:balance;max-width:16ch">{{ page.title }}</h1>
+<p style="font-size:19px;line-height:1.55;max-width:56ch;margin:0">{{ page.description }}</p>
+</div>
+</header>
+<div class="doc">
+<aside class="doc-aside">
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ol>
+{% if page.flow %}<li><a data-toc-link href="#arch">Architecture</a></li>{% endif %}
+{% if page.problem %}<li><a data-toc-link href="#problem">Problem</a></li>{% endif %}
+{% if page.data %}<li><a data-toc-link href="#data">Data</a></li>{% endif %}
+{% if page.engineering %}<li><a data-toc-link href="#engineering">Engineering</a></li>{% endif %}
+{% if page.analysis %}<li><a data-toc-link href="#analysis">Analysis</a></li>{% endif %}
+{% if page.model %}<li><a data-toc-link href="#model">Model</a></li>{% endif %}
+{% if page.sql %}<li><a data-toc-link href="#sql">SQL excerpt</a></li>{% endif %}
+{% if content.size > 2 %}<li><a data-toc-link href="#notes">Notes</a></li>{% endif %}
+<li><a data-toc-link href="#result">Result &amp; stack</a></li>
+</ol></nav>
+<div style="display:flex;flex-direction:column;gap:var(--space-3)">
+<div class="toc-h" style="margin:0">At a glance</div>
+<p style="margin:0;line-height:1.5">{{ page.stack | join: ' · ' }}</p>
+<div style="display:flex;gap:var(--space-2);flex-wrap:wrap">{% if page.repository and page.repository != '' %}<a class="btn btn-primary" href="{{ page.repository }}" rel="noopener">Repository</a>{% endif %}{% if page.demo and page.demo != '' %}<a class="btn btn-secondary" href="{{ page.demo }}" rel="noopener">Demo</a>{% endif %}</div>
+</div>
+<a href="#top" class="totop">↑ Back to top</a>
+</aside>
+<div class="doc-main">
+{% if page.flow %}<section aria-labelledby="arch" style="margin-bottom:clamp(48px,7vw,80px)">
+<h2 id="arch" style="font-size:13px;font-weight:400;color:var(--color-accent-2-700);margin:0 0 var(--space-4)">Architecture</h2>
+{% include flow.html steps=page.flow %}
+</section>{% endif %}
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(40px,5vw,64px) clamp(32px,5vw,72px);max-width:1080px">
+{% if page.problem %}<section id="problem"><h2 class="sec">Problem</h2><div class="prose-sm">{{ page.problem | markdownify }}</div></section>{% endif %}
+{% if page.data %}<section id="data"><h2 class="sec">Data</h2><div class="prose-sm">{{ page.data | markdownify }}</div></section>{% endif %}
+{% if page.engineering %}<section id="engineering"><h2 class="sec">Engineering</h2><ul style="margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:var(--space-2)">{% for e in page.engineering %}<li>{{ e }}</li>{% endfor %}</ul></section>{% endif %}
+{% if page.analysis %}<section id="analysis"><h2 class="sec">Analysis</h2><div class="prose-sm">{{ page.analysis | markdownify }}</div></section>{% endif %}
+</div>
+{% if page.model or page.sql %}<section style="margin-top:clamp(56px,8vw,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(40px,5vw,64px) clamp(32px,5vw,72px);max-width:1080px">
+{% if page.model %}<figure id="model" style="margin:0;min-width:0"><figcaption style="font-size:13px;color:var(--color-accent-2-700);margin-bottom:var(--space-3)">Model</figcaption>
+<div style="overflow-x:auto"><table class="table"><tbody>{% for r in page.model %}<tr><th scope="row" style="font-weight:600;text-align:left">{{ r.item }}</th><td>{{ r.detail }}</td></tr>{% endfor %}</tbody></table></div></figure>{% endif %}
+{% if page.sql %}<figure id="sql" style="margin:0;min-width:0"><figcaption style="font-size:13px;color:var(--color-accent-2-700);margin-bottom:var(--space-3)">SQL excerpt</figcaption>
+<pre class="code"><code>{{ page.sql | xml_escape }}</code></pre></figure>{% endif %}
+</section>{% endif %}
+{% if content.size > 2 %}<div class="prose" id="notes" style="margin-top:clamp(56px,8vw,96px)">{{ content }}</div>{% endif %}
+<section style="margin-top:clamp(56px,8vw,96px);display:flex;flex-wrap:wrap;gap:var(--space-8) clamp(32px,6vw,96px);max-width:1080px">
+<div style="flex:2 1 420px;min-width:0"><h2 class="sec" id="result">Result</h2><p style="margin:0;font-style:italic;font-size:clamp(22px,2.4vw,28px);line-height:1.35">{{ page.result }}</p></div>
+<div style="flex:1 1 260px;min-width:0"><h2 class="sec">Stack</h2>
+<ul style="list-style:none;margin:0 0 var(--space-6);padding:0;display:flex;flex-wrap:wrap;gap:var(--space-2)">{% for t in page.stack %}<li class="tag tag-neutral">{{ t }}</li>{% endfor %}</ul>
+<div style="display:flex;gap:var(--space-2);flex-wrap:wrap">{% if page.repository and page.repository != '' %}<a class="btn btn-primary" href="{{ page.repository }}" rel="noopener">Repository</a>{% endif %}{% if page.demo and page.demo != '' %}<a class="btn btn-secondary" href="{{ page.demo }}" rel="noopener">Live demo</a>{% endif %}</div></div>
+</section>
+</div>
+</div>
+{% if next.url != page.url %}<nav aria-label="Next project" style="margin-top:clamp(64px,9vw,112px);display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-6);align-items:baseline">
+<span class="text-muted" style="font-size:14px">Next project</span>
+<a href="{{ next.url | relative_url }}" style="font-size:clamp(24px,3vw,34px);text-decoration:none">{{ next.title }} →</a>
+</nav>{% endif %}
+</article>
